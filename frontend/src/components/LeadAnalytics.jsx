@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 
-// Helper function to count leads by source
+
 const countLeadsBySource = (leads) => {
   const sources = {
     website_form: 0,
@@ -22,7 +22,7 @@ const countLeadsBySource = (leads) => {
   return sources;
 };
 
-// Helper function to get monthly trend data
+
 const getMonthlyTrend = (leads) => {
   const months = {};
   const last6Months = [];
@@ -51,7 +51,7 @@ const getMonthlyTrend = (leads) => {
   return last6Months.map((key) => months[key]);
 };
 
-// Helper function to calculate average response time
+
 const getAverageResponseTime = (leads) => {
   let totalResponseTime = 0;
   let contactedLeads = 0;
@@ -62,7 +62,7 @@ const getAverageResponseTime = (leads) => {
       const updatedAt = new Date(lead.updatedAt);
       const responseHours = (updatedAt - createdAt) / (1000 * 60 * 60);
       if (responseHours > 0 && responseHours < 720) {
-        // Less than 30 days
+        
         totalResponseTime += responseHours;
         contactedLeads++;
       }
@@ -77,7 +77,7 @@ const getAverageResponseTime = (leads) => {
   return `${Math.round(avgHours / 168)} weeks`;
 };
 
-// Helper function for funnel data
+
 const getFunnelData = (leads) => {
   const total = leads.length;
   const newLeads = leads.filter((l) => l.status === 'new').length;
@@ -93,7 +93,7 @@ const getFunnelData = (leads) => {
   };
 };
 
-// Component 1: Lead Source Breakdown Chart
+
 export const LeadSourceChart = ({ leads }) => {
   const chartRef = useRef(null);
   const chartInstance = useRef(null);
@@ -207,7 +207,7 @@ export const LeadSourceChart = ({ leads }) => {
   );
 };
 
-// Component 2: Monthly Trend Chart
+
 export const MonthlyTrendChart = ({ leads }) => {
   const chartRef = useRef(null);
   const chartInstance = useRef(null);
@@ -302,7 +302,7 @@ export const MonthlyTrendChart = ({ leads }) => {
   );
 };
 
-// Component 3: Average Response Time Card
+
 export const ResponseTimeCard = ({ leads }) => {
   const avgResponseTime = getAverageResponseTime(leads);
   const totalLeads = leads.length;
@@ -337,7 +337,7 @@ export const ResponseTimeCard = ({ leads }) => {
   );
 };
 
-// Component 4: Conversion Funnel
+
 export const ConversionFunnel = ({ leads }) => {
   const funnel = getFunnelData(leads);
   const totalLeads = leads.length;
@@ -395,7 +395,7 @@ export const ConversionFunnel = ({ leads }) => {
   );
 };
 
-// Combined Analytics Section
+
 export const LeadAnalyticsSection = ({ leads }) => {
   if (!leads || leads.length === 0) {
     return (
@@ -407,13 +407,13 @@ export const LeadAnalyticsSection = ({ leads }) => {
 
   return (
     <div className="space-y-6">
-      {/* Row 1: Source Chart + Monthly Trend */}
+      {}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <LeadSourceChart leads={leads} />
         <MonthlyTrendChart leads={leads} />
       </div>
 
-      {/* Row 2: Response Time + Conversion Funnel */}
+      {}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <ResponseTimeCard leads={leads} />
         <ConversionFunnel leads={leads} />

@@ -98,7 +98,7 @@ const updateLeadStatus = async (req, res) => {
 
 const addNote = async (req, res) => {
   try {
-    // Convert notes endpoint to tags endpoint: accepts { tags: [] }
+    
     const { tags = [] } = req.body;
     const id = parseInt(req.params.id);
     const lead = await prisma.lead.findUnique({ where: { id } });

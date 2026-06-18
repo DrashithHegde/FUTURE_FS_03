@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 async function seed() {
   console.log('🌱 Seeding database...');
 
-  // 1. Admin user
+  
   const hashedPassword = await bcrypt.hash('admin123', 10);
   const admin = await prisma.user.upsert({
     where: { email: 'admin@crm.com' },
@@ -19,7 +19,7 @@ async function seed() {
   });
   console.log(`✅ Admin user: ${admin.email} (${admin.full_name})`);
 
-  // 2. Sample company
+  
   const company = await prisma.company.upsert({
     where: { id: 1 },
     update: {},
@@ -33,7 +33,7 @@ async function seed() {
   });
   console.log(`✅ Company: ${company.name}`);
 
-  // 3. Sample contact
+  
   const contact = await prisma.contact.upsert({
     where: { id: 1 },
     update: {},
@@ -48,7 +48,7 @@ async function seed() {
   });
   console.log(`✅ Contact: ${contact.first_name} ${contact.last_name}`);
 
-  // 4. Sample deal
+  
   const deal = await prisma.deal.upsert({
     where: { id: 1 },
     update: {},
@@ -63,7 +63,7 @@ async function seed() {
   });
   console.log(`✅ Deal: ${deal.name}`);
 
-  // 5. Sample activity
+  
   const activity = await prisma.activity.upsert({
     where: { id: 1 },
     update: {},
@@ -91,7 +91,7 @@ seed()
     await prisma.$disconnect();
   });
 
-// Additional dummy leads and users for testing
+
 async function seedMore() {
   const sampleLeads = [
     { name: 'Alice Smith', email: 'alice@example.com', phone: '+1-202-555-0111', source: 'referral', status: 'new' },
@@ -113,12 +113,12 @@ async function seedMore() {
         status: l.status,
       },
     });
-    // attach tags for demo
+    
     await prisma.lead.update({ where: { id: lead.id }, data: { tags: { connectOrCreate: [{ where: { name: 'demo' }, create: { name: 'demo' } }, { where: { name: l.source }, create: { name: l.source } }] } } });
     console.log(`+ Lead: ${l.email}`);
   }
 
-  // sample users
+  
   const users = [
     { email: 'sales1@crm.com', name: 'Sales One', role: 'sales', pass: 'password1' },
     { email: 'sales2@crm.com', name: 'Sales Two', role: 'sales', pass: 'password2' },
@@ -135,7 +135,7 @@ async function seedMore() {
   }
 }
 
-// Run supplemental seeding without duplicating main seed
+
 seedMore().catch((e) => {
   console.error('❌ Supplemental seeding error:', e);
 });

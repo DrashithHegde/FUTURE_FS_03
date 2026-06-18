@@ -43,7 +43,7 @@
     if (r.status !== 200) throw new Error('Delete lead failed');
     log('OK', 'Lead deleted');
 
-    // Users CRUD
+    
     log('STEP', 'Create test user');
     const userPayload = { username: `smoke_user_${Date.now()}`, email: `smoke_user_${Date.now()}@example.com`, password: 'Test1234!', role: 'viewer' };
     r = await fetchJSON('/users', { method: 'POST', headers, body: JSON.stringify(userPayload) });

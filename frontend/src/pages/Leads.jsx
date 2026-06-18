@@ -73,7 +73,7 @@ const Leads = () => {
   };
 
   const addNote = async () => {
-    // interpret newNote as comma-separated tags and send to tags endpoint
+    
     const tags = (newNote || '')
       .split(',')
       .map((t) => t.trim())
@@ -116,14 +116,14 @@ const Leads = () => {
     }
   };
 
-  // NEW: Update Lead Details
+  
   const updateLead = async (e) => {
     e.preventDefault();
     setSubmitting(true);
     try {
       await api.put(`/leads/${editLead.id}/status`, { status: editLead.status });
 
-      // Update other details
+      
       const updateData = {
         name: editLead.name,
         email: editLead.email,
@@ -142,7 +142,7 @@ const Leads = () => {
     }
   };
 
-  // NEW: Delete Lead
+  
   const deleteLead = async (lead) => {
     if (
       window.confirm(
@@ -159,7 +159,7 @@ const Leads = () => {
     }
   };
 
-  // NEW: Open Edit Modal
+  
   const openEditModal = (lead) => {
     setEditLead({
       id: lead.id,
@@ -215,7 +215,7 @@ const Leads = () => {
   return (
     <Layout>
       <div className="space-y-6">
-        {/* Header */}
+        {}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
             <h1 className="page-title">Lead Management</h1>
@@ -257,7 +257,7 @@ const Leads = () => {
           </div>
         </div>
 
-        {/* Filters */}
+        {}
         <div className="card">
           <div className="flex flex-col sm:flex-row gap-4">
             <div className="flex-1 relative">
@@ -288,7 +288,7 @@ const Leads = () => {
           </div>
         </div>
 
-        {/* Leads Table */}
+        {}
         <div className="card overflow-hidden">
           <div className="overflow-x-auto">
             <table className="min-w-full">
@@ -425,7 +425,7 @@ const Leads = () => {
             </table>
           </div>
 
-          {/* Pagination */}
+          {}
           {totalPages > 1 && (
             <div className="px-6 py-4 border-t border-gray-200 dark:border-gray-700 flex items-center justify-between">
               <button
@@ -449,7 +449,7 @@ const Leads = () => {
           )}
         </div>
 
-        {/* Add Lead Modal */}
+        {}
         {showAddModal && (
           <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
             <div className="card w-full max-w-md">
@@ -523,7 +523,7 @@ const Leads = () => {
           </div>
         )}
 
-        {/* Edit Lead Modal */}
+        {}
         {showEditModal && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
             <div className="card w-full max-w-md">
@@ -597,7 +597,7 @@ const Leads = () => {
           </div>
         )}
 
-        {/* Notes Modal */}
+        {}
         {showNotesModal && selectedLead && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
             <div className="card w-full max-w-2xl">

@@ -27,7 +27,7 @@ const Users = () => {
     setLoading(true);
     try {
       const response = await api.get('/users');
-      // Ensure frontend expects `username` for legacy UI fields
+      
       const normalized = response.data.data.map((u) => ({
         ...u,
         username: u.username || u.name || u.full_name,
@@ -138,7 +138,7 @@ const Users = () => {
   return (
     <Layout>
       <div className="space-y-6">
-        {/* Header */}
+        {}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
             <h1 className="page-title">User Management</h1>
@@ -150,7 +150,7 @@ const Users = () => {
           </button>
         </div>
 
-        {/* Users Table */}
+        {}
         <div className="card overflow-hidden">
           <div className="overflow-x-auto">
             <table className="min-w-full">
@@ -237,7 +237,7 @@ const Users = () => {
           </div>
         </div>
 
-        {/* Add User Modal */}
+        {}
         {showAddModal && (
           <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
             <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-full max-w-md">
@@ -336,7 +336,7 @@ const Users = () => {
           </div>
         )}
 
-        {/* Edit User Modal */}
+        {}
         {showEditModal && selectedUser && (
           <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
             <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-full max-w-md">

@@ -40,7 +40,7 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
   try {
-    const { username, password } = req.body; // username may be email or full name
+    const { username, password } = req.body; 
 
     const user = await prisma.user.findFirst({
       where: { OR: [{ email: username }, { full_name: username }] },

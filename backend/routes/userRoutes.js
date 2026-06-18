@@ -18,7 +18,7 @@ router.get('/', protect, authorize('admin'), async (req, res) => {
         updated_at: true,
       },
     });
-    // Normalize field names for frontend compatibility
+    
     const normalized = users.map((u) => ({
       id: u.id,
       name: u.full_name,

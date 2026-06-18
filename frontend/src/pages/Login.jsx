@@ -37,7 +37,7 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-900 via-indigo-800 to-purple-900 relative overflow-hidden">
-      {/* Background Effects */}
+      {}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-500 rounded-full blur-3xl opacity-20 animate-pulse"></div>
 
@@ -45,7 +45,7 @@ const Login = () => {
       </div>
 
       <div className="relative z-10 w-full max-w-md px-6">
-        {/* Header */}
+        {}
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl shadow-2xl mb-4">
             <TrendingUp className="h-10 w-10 text-white" />
@@ -62,10 +62,10 @@ const Login = () => {
           </div>
         </div>
 
-        {/* Login Card */}
+        {}
         <div className="bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl p-8 border border-white/20">
           <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Username */}
+            {}
             <div>
               <label className="block text-sm font-medium text-white mb-2">Email</label>
 
@@ -83,7 +83,7 @@ const Login = () => {
               </div>
             </div>
 
-            {/* Password */}
+            {}
             <div>
               <label className="block text-sm font-medium text-white mb-2">Password</label>
 
@@ -109,7 +109,7 @@ const Login = () => {
               </div>
             </div>
 
-            {/* Button */}
+            {}
             <button
               type="submit"
               disabled={loading}
@@ -126,7 +126,7 @@ const Login = () => {
             </button>
           </form>
 
-          {/* Demo Credentials */}
+          {}
           <div className="mt-6 pt-4 border-t border-white/10 text-center">
             <p className="text-xs text-blue-200">
               Demo Login:

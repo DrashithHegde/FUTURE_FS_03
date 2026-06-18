@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 
 const CRMCharts = () => null;
 
-// ─── Constants ────────────────────────────────────────────────────────────────
+
 const STATUSES = ['New', 'Contacted', 'Qualified', 'Converted', 'Lost'];
 
 const STATUS_COLORS = {
@@ -13,8 +13,8 @@ const STATUS_COLORS = {
   Lost: { hex: '#EF4444', dot: 'bg-red-500' },
 };
 
-// ─── Helper ───────────────────────────────────────────────────────────────────
-// FIX: normalizes status casing so "new" / "NEW" / "New" all match correctly
+
+
 const countLeadsByStatus = (leads = []) => {
   const counts = {};
   STATUSES.forEach((s) => {
@@ -28,7 +28,7 @@ const countLeadsByStatus = (leads = []) => {
   return counts;
 };
 
-// ─── Chart.js CDN loader — loads once, never duplicates the script tag ────────
+
 function loadChartJs(cb) {
   if (window.Chart) {
     cb();
@@ -44,9 +44,9 @@ function loadChartJs(cb) {
   script.addEventListener('load', cb, { once: true });
 }
 
-// ═══════════════════════════════════════════════════════════════════════════════
-// DONUT CHART
-// ═══════════════════════════════════════════════════════════════════════════════
+
+
+
 export const LeadDonutChart = ({ leads = [] }) => {
   const canvasRef = useRef(null);
   const chartInstance = useRef(null);
@@ -58,7 +58,7 @@ export const LeadDonutChart = ({ leads = [] }) => {
       const counts = countLeadsByStatus(leads);
       const totalLeads = leads.length;
 
-      // FIX: destroy always before recreating — prevents "Canvas already in use"
+      
       if (chartInstance.current) {
         chartInstance.current.destroy();
         chartInstance.current = null;
@@ -67,8 +67,8 @@ export const LeadDonutChart = ({ leads = [] }) => {
       chartInstance.current = new window.Chart(canvasRef.current.getContext('2d'), {
         type: 'doughnut',
         data: {
-          // FIX: labels array is the SAME STATUSES array used for data
-          // so index 0 of labels always matches index 0 of data
+          
+          
           labels: [...STATUSES],
           datasets: [
             {
@@ -87,12 +87,12 @@ export const LeadDonutChart = ({ leads = [] }) => {
           cutout: '65%',
           animation: { animateRotate: true, animateScale: true },
           plugins: {
-            // FIX: built-in legend is OFF — we use our own HTML legend below
-            // so labels don't depend on Chart.js rendering them
+            
+            
             legend: { display: false },
             tooltip: {
               callbacks: {
-                // FIX: explicit title callback — always shows the status name
+                
                 title: (items) => items[0]?.label ?? '',
                 label: (ctx) => {
                   const value = ctx.parsed ?? 0;
@@ -118,14 +118,14 @@ export const LeadDonutChart = ({ leads = [] }) => {
 
     loadChartJs(buildChart);
 
-    // cleanup on unmount only
+    
     return () => {
       if (chartInstance.current) {
         chartInstance.current.destroy();
         chartInstance.current = null;
       }
     };
-  }, [leads]); // re-runs whenever leads array reference changes
+  }, [leads]); 
 
   const counts = countLeadsByStatus(leads);
   const totalLeads = leads.length;
@@ -139,10 +139,10 @@ export const LeadDonutChart = ({ leads = [] }) => {
         </p>
       </div>
 
-      {/* Canvas */}
+      {}
       <div className="relative h-64 flex items-center justify-center">
         <canvas ref={canvasRef} className="w-full h-full" />
-        {/* Centre label — total count, always visible in DOM */}
+        {}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <div className="text-center">
             <p className="text-3xl font-bold text-gray-900 dark:text-white">{totalLeads}</p>
@@ -151,12 +151,7 @@ export const LeadDonutChart = ({ leads = [] }) => {
         </div>
       </div>
 
-      {/*
-        FIX: Custom HTML legend replaces Chart.js legend entirely.
-        Every status name is rendered as a real DOM text node —
-        it is NEVER dependent on Chart.js label rendering.
-        Shows all 5 statuses including those with 0 leads.
-      */}
+      {}
       <div className="mt-6 grid grid-cols-2 sm:grid-cols-5 gap-2">
         {STATUSES.map((status) => {
           const count = counts[status] ?? 0;
@@ -170,7 +165,7 @@ export const LeadDonutChart = ({ leads = [] }) => {
                 <span
                   className={`w-2.5 h-2.5 rounded-full flex-shrink-0 ${STATUS_COLORS[status].dot}`}
                 />
-                {/* Status name — plain DOM text, always visible */}
+                {}
                 <span className="text-xs font-semibold text-gray-700 dark:text-gray-200 truncate">
                   {status}
                 </span>
@@ -187,9 +182,9 @@ export const LeadDonutChart = ({ leads = [] }) => {
   );
 };
 
-// ═══════════════════════════════════════════════════════════════════════════════
-// BAR CHART
-// ═══════════════════════════════════════════════════════════════════════════════
+
+
+
 export const LeadBarChart = ({ leads = [] }) => {
   const canvasRef = useRef(null);
   const chartInstance = useRef(null);
@@ -208,7 +203,7 @@ export const LeadBarChart = ({ leads = [] }) => {
       chartInstance.current = new window.Chart(canvasRef.current.getContext('2d'), {
         type: 'bar',
         data: {
-          // FIX: labels is the authoritative STATUSES array
+          
           labels: [...STATUSES],
           datasets: [
             {
@@ -231,7 +226,7 @@ export const LeadBarChart = ({ leads = [] }) => {
             legend: { display: false },
             tooltip: {
               callbacks: {
-                // FIX: title explicitly reads from labels so status name shows
+                
                 title: (items) => items[0]?.label ?? '',
                 label: (ctx) => {
                   const v = ctx.parsed.y ?? 0;
@@ -256,7 +251,7 @@ export const LeadBarChart = ({ leads = [] }) => {
                 color: '#6B7280',
                 font: { size: 12, weight: '600' },
                 padding: 4,
-                // FIX: never skip or rotate labels — all 5 always visible
+                
                 autoSkip: false,
                 maxRotation: 0,
               },
@@ -272,7 +267,7 @@ export const LeadBarChart = ({ leads = [] }) => {
                 color: '#6B7280',
                 font: { size: 11 },
                 stepSize: 1,
-                // FIX: only integer ticks — no 0.5, 1.5 etc.
+                
                 callback: (val) => (Number.isInteger(val) ? val : null),
               },
               title: {
@@ -300,7 +295,7 @@ export const LeadBarChart = ({ leads = [] }) => {
   }, [leads]);
 
   const counts = countLeadsByStatus(leads);
-  // FIX: floor maxCount at 1 so width% never becomes NaN when all counts are 0
+  
   const maxCount = Math.max(...STATUSES.map((s) => counts[s]), 1);
 
   return (
@@ -314,18 +309,12 @@ export const LeadBarChart = ({ leads = [] }) => {
         </p>
       </div>
 
-      {/* Canvas */}
+      {}
       <div className="h-72">
         <canvas ref={canvasRef} className="w-full h-full" />
       </div>
 
-      {/*
-        FIX: Custom HTML progress-bar legend.
-        Status names are real DOM text — never dependent on Chart.js.
-        Count number shown OUTSIDE the bar so it's visible even when bar is thin.
-        minWidth guard ensures the bar has at least 2rem width when count > 0
-        so the white count label inside never gets clipped.
-      */}
+      {}
       <div className="mt-6 space-y-2.5">
         {STATUSES.map((status) => {
           const count = counts[status] ?? 0;
@@ -333,7 +322,7 @@ export const LeadBarChart = ({ leads = [] }) => {
           const cfg = STATUS_COLORS[status];
           return (
             <div key={status} className="flex items-center gap-3">
-              {/* Status label — always in DOM */}
+              {}
               <div className="w-24 flex items-center gap-2 flex-shrink-0">
                 <span className={`w-2.5 h-2.5 rounded-full flex-shrink-0 ${cfg.dot}`} />
                 <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
@@ -341,7 +330,7 @@ export const LeadBarChart = ({ leads = [] }) => {
                 </span>
               </div>
 
-              {/* Progress bar */}
+              {}
               <div className="flex-1 h-7 bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden">
                 <div
                   className="h-full rounded-lg flex items-center justify-end px-2.5 transition-all duration-500"
@@ -355,7 +344,7 @@ export const LeadBarChart = ({ leads = [] }) => {
                 </div>
               </div>
 
-              {/* Count outside bar — always visible even if bar is too thin */}
+              {}
               <span className="w-6 text-right text-sm font-semibold text-gray-700 dark:text-gray-200 flex-shrink-0">
                 {count}
               </span>
@@ -367,7 +356,7 @@ export const LeadBarChart = ({ leads = [] }) => {
   );
 };
 
-// ─── Combined Section ─────────────────────────────────────────────────────────
+
 export const LeadChartsSection = ({ leads = [] }) => {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

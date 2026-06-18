@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Restore auth state when the app loads
+  
   useEffect(() => {
     try {
       const token = localStorage.getItem('token');
@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       console.error('Failed to restore auth state:', error);
 
-      // Clear corrupted data
+      
       localStorage.removeItem('token');
       localStorage.removeItem('user');
       delete api.defaults.headers.common['Authorization'];
@@ -41,7 +41,7 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  // Login function
+  
   const login = async (username, password) => {
     try {
       const response = await api.post('/auth/login', {
@@ -49,7 +49,7 @@ export const AuthProvider = ({ children }) => {
         password,
       });
 
-      // Validate API response
+      
       if (!response.data || !response.data.success) {
         throw new Error(response.data?.message || 'Login failed');
       }
@@ -60,30 +60,30 @@ export const AuthProvider = ({ children }) => {
         throw new Error('Token not received from server');
       }
 
-      // Normalize user object for backward compatibility (provide `username`)
+      
       const normalizedUser = { ...userData, username: userData.name || userData.username };
 
-      // Save to localStorage
+      
       localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify(normalizedUser));
 
-      // Set axios default header
+      
       api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
-      // Update React state
+      
       setUser(normalizedUser);
 
-      // Initialize socket connection for real-time events
+      
       try {
         initializeSocket(userData.id);
       } catch (e) {
         console.warn('Socket init failed on login', e.message);
       }
 
-      // Show success message
+      
       toast.success('Login successful! Welcome back.');
 
-      // IMPORTANT: return true so Login.jsx can navigate
+      
       return true;
     } catch (error) {
       console.error('Login failed:', error.response?.data || error.message);
@@ -93,7 +93,7 @@ export const AuthProvider = ({ children }) => {
 
       toast.error(message);
 
-      // Ensure failed login does not leave stale data
+      
       localStorage.removeItem('token');
       localStorage.removeItem('user');
       delete api.defaults.headers.common['Authorization'];
@@ -103,7 +103,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Logout function
+  
   const logout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');

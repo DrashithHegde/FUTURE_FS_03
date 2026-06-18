@@ -17,16 +17,16 @@ export const initializeSocket = (userId) => {
   });
 
   socket.on('connect', () => {
-    // connected
+    
     if (userId) socket.emit('join-user', userId);
     toast.success('Real-time connected', { icon: '🔌', duration: 2000 });
   });
 
   socket.on('disconnect', () => {
-    // disconnected
+    
   });
 
-  // Generic event handlers
+  
   const handleEvent = (eventName, toastOpts) => (data) => {
     if (toastOpts?.type === 'success') toast.success(data.message, toastOpts.options || {});
     if (toastOpts?.type === 'info') toast.info(data.message, toastOpts.options || {});

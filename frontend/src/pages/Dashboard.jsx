@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Layout from '../components/Layout';
 import { useAuth } from '../context/AuthContext';
 import api from '../services/api';
-// exportService functions removed; using in-file export to avoid unused import warnings
+
 import toast from 'react-hot-toast';
 import {
   Users,
@@ -161,7 +161,7 @@ const Dashboard = () => {
   return (
     <Layout>
       <div className="space-y-6">
-        {/* Header */}
+        {}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>
             <h1 className="page-title">Dashboard</h1>
@@ -173,7 +173,7 @@ const Dashboard = () => {
           </button>
         </div>
 
-        {/* Stats Cards */}
+        {}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {stats.map((stat, i) => {
             const colors = getColorClasses(stat.color);
@@ -208,7 +208,7 @@ const Dashboard = () => {
           })}
         </div>
 
-        {/* Conversion Rate Card */}
+        {}
         <div className="card">
           <div className="flex items-center justify-between mb-3">
             <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Conversion Rate</h2>
@@ -226,13 +226,13 @@ const Dashboard = () => {
           <p className="text-sm text-gray-500 mt-2">of total leads converted to clients</p>
         </div>
 
-        {/* NEW: Lead Analytics Section */}
+        {}
         <LeadAnalyticsSection leads={allLeads} />
 
-        {/* Charts Section */}
+        {}
         <LeadChartsSection leads={allLeads} />
 
-        {/* Recent Leads Table */}
+        {}
         <div className="card overflow-hidden">
           <div className="px-6 py-4 border-b">
             <h2 className="card-heading">Recent Leads</h2>

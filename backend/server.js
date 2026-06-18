@@ -3,7 +3,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const compression = require('compression');
 const dotenv = require('dotenv');
-const { PrismaClient } = require('@prisma/client'); // 👈 Import Prisma
+const { PrismaClient } = require('@prisma/client'); 
 const { connectDB } = require('./config/database');
 const { apiLimiter } = require('./middleware/rateLimiter');
 
@@ -13,10 +13,10 @@ const app = express();
 const http = require('http');
 const server = http.createServer(app);
 
-// Initialize Prisma Client
+
 const prisma = new PrismaClient();
 
-// Middleware
+
 app.use(helmet());
 app.use(compression());
 app.use(cors({ origin: ['http://localhost:3000', 'http://localhost:5173'], credentials: true }));
@@ -24,15 +24,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/api', apiLimiter);
 
-// ---------- ROUTES ----------
+
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/leads', require('./routes/leadRoutes'));
 app.use('/api/users', require('./routes/userRoutes'));
 
-// ---------- HEALTH CHECK (with Prisma DB verification) ----------
+
 app.get('/api/health', async (req, res) => {
   try {
-    // Count users to verify DB connection (adjust model name if needed)
+    
     const userCount = await prisma.user.count();
     res.status(200).json({
       success: true,
@@ -54,7 +54,7 @@ app.get('/api/health', async (req, res) => {
   }
 });
 
-// ---------- EXISTING HEALTH ROUTE (if you still need it) ----------
+
 app.get('/health', (req, res) =>
   res.status(200).json({
     success: true,
@@ -65,7 +65,7 @@ app.get('/health', (req, res) =>
   })
 );
 
-// ---------- ROOT ----------
+
 app.get('/', (req, res) =>
   res.status(200).json({
     success: true,
@@ -76,21 +76,21 @@ app.get('/', (req, res) =>
   })
 );
 
-// ---------- GLOBAL ERROR HANDLER ----------
+
 app.use((err, req, res, _next) => {
   console.error('Server Error:', err.stack);
   res.status(500).json({ success: false, message: 'Internal Server Error' });
 });
 
-// ---------- START SERVER ----------
+
 const PORT = process.env.PORT || 5000;
 
 const startServer = async () => {
   try {
-    // If you still use a separate DB connection (e.g., MongoDB), keep it
+    
     await connectDB();
 
-    // Initialize Socket.IO
+    
     const { init } = require('./socket');
     init(server);
 
